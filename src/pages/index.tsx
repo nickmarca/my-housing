@@ -34,7 +34,7 @@ export default function Home() {
       <main
         className={classNames(
           montserrat.variable,
-          "h-screen w-screen bg-[url('/img/bg.jpg')] bg-cover bg-bottom font-sans flex items-center justify-center min-w-[786px]",
+          "h-screen w-screen bg-[url('/my-housing/img/bg.jpg')] bg-cover bg-bottom font-sans flex items-center justify-center min-w-[786px]",
         )}
       >
         <div className="absolute bottom-20 font-sans text-xs text-gray-400/75">
