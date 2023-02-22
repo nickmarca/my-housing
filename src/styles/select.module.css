@@ -1,0 +1,25 @@
+.select {
+  position: relative;
+}
+
+.select select {
+  display: none;
+}
+
+.hidden {
+  display: none;
+}
+
+.selected,
+.option {
+  cursor: pointer;
+  user-select: none;
+}
+
+.container {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 99;
+}

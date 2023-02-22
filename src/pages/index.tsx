@@ -1,11 +1,28 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import { Inter } from '@next/font/google'
-import styles from '@/styles/Home.module.css'
+import Head from 'next/head';
+import { Montserrat } from '@next/font/google';
+import classNames from 'classnames';
+import styles from '@/styles/index.module.css';
+import Link from 'next/link';
+import ButtonWithIcon from '@/components/button-with-icon';
+import FavoriteSVG from '@/svgs/favorite-svg';
+import PersonSVG from '@/svgs/person-svg';
+import ButtonOutlined from '@/components/button-outlined';
+import ButtonDark from '@/components/button-dark';
+import Select from '@/components/select';
+import { useState } from 'react';
+import HomeSVG from '@/svgs/home-svg';
+import ExpandLessSVG from '@/svgs/expand-less-svg';
+import ExpandMoreSVG from '@/svgs/expand-more-svg';
 
-const inter = Inter({ subsets: ['latin'] })
+const montserrat = Montserrat({
+  subsets: ['latin'],
+  variable: '--font-montserrat',
+});
 
 export default function Home() {
+  const [propertyType, setPropertyType] = useState<string>();
+  const [city, setCity] = useState<string>();
+
   return (
     <>
       <Head>
@@ -14,110 +31,147 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className={styles.main}>
-        <div className={styles.description}>
-          <p>
-            Get started by editing&nbsp;
-            <code className={styles.code}>src/pages/index.tsx</code>
-          </p>
+      <main
+        className={classNames(
+          montserrat.variable,
+          "h-screen w-screen bg-[url('/img/bg.jpg')] bg-cover bg-bottom font-sans flex items-center justify-center min-w-[786px]",
+        )}
+      >
+        <div className="absolute bottom-20 font-sans text-xs text-gray-400/75">
           <div>
-            <a
-              href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              By{' '}
-              <Image
-                src="/vercel.svg"
-                alt="Vercel Logo"
-                className={styles.vercelLogo}
-                width={100}
-                height={24}
-                priority
-              />
-            </a>
+            <span>Designed by: </span>
+            <Link href="https://dribbble.com/olegladygin">
+              {'Oleg Ladygin'}
+            </Link>
+          </div>
+          <div>
+            <span>Developed by: </span>
+            <Link href="https://github.com/nickmarca">{'Nick Marca'}</Link>
           </div>
         </div>
-
-        <div className={styles.center}>
-          <Image
-            className={styles.logo}
-            src="/next.svg"
-            alt="Next.js Logo"
-            width={180}
-            height={37}
-            priority
-          />
-          <div className={styles.thirteen}>
-            <Image
-              src="/thirteen.svg"
-              alt="13"
-              width={40}
-              height={31}
-              priority
-            />
+        <div className="w-full max-w-7xl h-[46rem] shadow-full p-3 overflow-hidden">
+          <div className="w-full h-full shadow-full shadow-white rounded-xl bg-neutral-800/25 flex flex-col">
+            <nav className="border-b border-gray-200/25">
+              <div className="flex p-4">
+                <div className="flex-1">
+                  <Link
+                    href="https://dribbble.com/shots/20707664-UHousing-Property-Platform"
+                    className="text-white text-2xl font-serif font-bold leading-[3rem]"
+                  >
+                    {'MyHousing'}
+                  </Link>
+                </div>
+                <div className="flex flex-3 justify-end text-white font-sans font-medium">
+                  <div className="flex gap-x-8 text-sm">
+                    <Link className="leading-[3rem]" href="/">
+                      {'Rent'}
+                    </Link>
+                    <Link className="leading-[3rem]" href="/">
+                      {'Buy'}
+                    </Link>
+                    <Link className="leading-[3rem]" href="/">
+                      {'Sell'}
+                    </Link>
+                    <Link className="leading-[3rem]" href="/">
+                      {'New Building'}
+                    </Link>
+                  </div>
+                  <div className="flex ml-8 gap-x-2">
+                    <ButtonWithIcon>
+                      <FavoriteSVG
+                        className="fill-neutral-900"
+                        height={18}
+                        width={18}
+                        viewBox="-1 -1 22 22"
+                      />
+                    </ButtonWithIcon>
+                    <ButtonWithIcon>
+                      <PersonSVG
+                        className="fill-neutral-900"
+                        height={18}
+                        width={18}
+                        viewBox="-1 -1 22 22"
+                      />
+                    </ButtonWithIcon>
+                    <ButtonOutlined>{'Make An Ad'}</ButtonOutlined>
+                  </div>
+                </div>
+              </div>
+            </nav>
+            <div className="flex flex-1 p-4">
+              <div className="flex-1 flex flex-col justify-end">
+                <h1 className="text-white text-6xl font-serif font-bold w-3/4 mb-48">
+                  {'Get your personal property'}
+                </h1>
+              </div>
+              <div className="flex-1 flex flex-col justify-end">
+                <div className="rounded-xl bg-gray-100 p-3 flex flex-col">
+                  <h3 className="font-serif text-zinc-800 text-lg font-bold mt-3 w-72 leading-5">
+                    {'Search the property you looking for'}
+                  </h3>
+                  <Select
+                    className="font-sans mb-3 text-zinc-800"
+                    selectedClassName="border-b border-zinc-300 py-4"
+                    placeholderClassName="text-zinc-400"
+                    optionsContainerClassName="bg-gray-100 shadow-md"
+                    optionClassName="py-2 px-2 hover:bg-gray-200"
+                    placeholder="Property type"
+                    value={propertyType}
+                    onChange={event => {
+                      setPropertyType(event.target.value);
+                    }}
+                    renderSelectedContent={(text, hidden) => (
+                      <div className="flex justify-between items-center">
+                        <span className="leading-9">{text}</span>
+                        <span className="rounded-full p-2 bg-gray-200">
+                          {hidden ? <ExpandMoreSVG /> : <ExpandLessSVG />}
+                        </span>
+                      </div>
+                    )}
+                  >
+                    <option value="0">{'Test 1'}</option>
+                    <option value="1">{'Test 2'}</option>
+                    <option value="2">{'Test 3'}</option>
+                  </Select>
+                  <Select
+                    className="font-sans mb-3 text-zinc-800"
+                    selectedClassName="border-b border-zinc-300 py-4"
+                    placeholderClassName="text-zinc-400"
+                    optionsContainerClassName="bg-gray-100 shadow-md"
+                    optionClassName="py-2 px-2 hover:bg-gray-200"
+                    placeholder="City"
+                    value={city}
+                    onChange={event => {
+                      setCity(event.target.value);
+                    }}
+                    renderSelectedContent={(text, hidden) => (
+                      <div className="flex justify-between items-center">
+                        <span className="leading-9">{text}</span>
+                        <span className="rounded-full p-2 bg-gray-200">
+                          {hidden ? <ExpandMoreSVG /> : <ExpandLessSVG />}
+                        </span>
+                      </div>
+                    )}
+                  >
+                    <option value="0">{'London'}</option>
+                    <option value="1">{'Madrid'}</option>
+                    <option value="2">{'Lisbon'}</option>
+                  </Select>
+                  <ButtonDark className="w-full mt-10 flex items-center justify-center">
+                    <span>{'Find Accommodation'}</span>
+                    <HomeSVG
+                      className="ml-2 fill-white"
+                      height={18}
+                      width={18}
+                      viewBox="-1 -1 22 22"
+                    />
+                  </ButtonDark>
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
-
-        <div className={styles.grid}>
-          <a
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2 className={inter.className}>
-              Docs <span>-&gt;</span>
-            </h2>
-            <p className={inter.className}>
-              Find in-depth information about Next.js features and&nbsp;API.
-            </p>
-          </a>
-
-          <a
-            href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2 className={inter.className}>
-              Learn <span>-&gt;</span>
-            </h2>
-            <p className={inter.className}>
-              Learn about Next.js in an interactive course with&nbsp;quizzes!
-            </p>
-          </a>
-
-          <a
-            href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2 className={inter.className}>
-              Templates <span>-&gt;</span>
-            </h2>
-            <p className={inter.className}>
-              Discover and deploy boilerplate example Next.js&nbsp;projects.
-            </p>
-          </a>
-
-          <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2 className={inter.className}>
-              Deploy <span>-&gt;</span>
-            </h2>
-            <p className={inter.className}>
-              Instantly deploy your Next.js site to a shareable URL
-              with&nbsp;Vercel.
-            </p>
-          </a>
         </div>
       </main>
     </>
-  )
+  );
 }
